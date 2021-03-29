@@ -1,4 +1,4 @@
-console.log("navbar.js loaded!");
+console.time('navbar.js loaded');
 
 async function main() {
   /* Main event loop. All declarations are wrapped within 
@@ -26,11 +26,12 @@ async function main() {
     /* Returns the correct URL for linking to Github. */
     const { hostname, pathname } = location;
     let devmode = hostname.includes('127.0.0.1');
-    console.log(pathname.match(/^\/([\w\-]*)\/(.*)$/));
+        paths   = pathname.match(/^\/([\w\-]*)\/(.*)$/);
+    console.log('Paths: ', paths);
     switch (true) {
-      case devmode   : return [ null, 'web-dev', '' ];
-      case !pathname : return [ null, hostname, '' ];
-      default: return pathname.match(/^\/([\w\-]*)\/(.*)$/);
+      case devmode : return [ null, 'web-dev', '' ];
+      case !paths  : return [ null, hostname, '' ];
+      default: return paths;
     }
   }
 
@@ -60,3 +61,4 @@ async function main() {
 }
 
 main();
+console.timeEnd('navbar.js loaded')
