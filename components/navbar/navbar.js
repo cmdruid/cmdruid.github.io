@@ -3,7 +3,7 @@ console.log("navbar.js loaded!");
 async function main() {
   /* Main event loop. All declarations are wrapped within 
      this scope. */
-  const [ repo, path = '' ] = getURL(window.location);
+  const [ _, repo, path = '' ] = getURL(window.location);
   const ghURL    = `https://github.com/cmdruid/${repo}/tree/master/${path}`,
         cssURL   = 'https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css',
         localdir = document.currentScript.src.match(/^.*\//)[0];
@@ -26,10 +26,11 @@ async function main() {
     /* Returns the correct URL for linking to Github. */
     const { hostname, pathname } = location;
     let devmode = hostname.includes('127.0.0.1');
+    console.log(pathname.match(/^\/([\w\-]*)\/(.*)$/));
     switch (true) {
-      case devmode   : return [ 'web-dev', '' ];
-      case !pathname : return [ hostname, '' ];
-      default: return pathname.match(/^\/([\w\-]*)\/(.*)$/).slice(1);
+      case devmode   : return [ null, 'web-dev', '' ];
+      case !pathname : return [ null, hostname, '' ];
+      default: return pathname.match(/^\/([\w\-]*)\/(.*)$/);
     }
   }
 
