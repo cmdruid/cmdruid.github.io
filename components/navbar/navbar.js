@@ -17,6 +17,7 @@ async function main() {
           homeBtn = navbar.querySelector('#home-link'),
           ghBtn   = navbar.querySelector('#github-link');
     if (!navbar) console.log("Elements failed to load!");
+    document.body.style.paddingTop = '3rem';
     document.body.prepend(navbar);
     homeBtn.setAttribute('onclick', `location.href='${window.location.origin}';`);
     ghBtn.setAttribute('onclick', `location.href='${ghURL}';`);
@@ -27,7 +28,6 @@ async function main() {
     const { hostname, pathname } = location;
     let devmode = hostname.includes('127.0.0.1');
         paths   = pathname.match(/^\/([\w\-]*)\/(.*)$/);
-    console.log('Paths: ', paths);
     switch (true) {
       case devmode : return [ null, 'web-dev', '' ];
       case !paths  : return [ null, hostname, '' ];
